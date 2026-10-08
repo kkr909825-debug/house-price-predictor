@@ -1,0 +1,13 @@
+{
+  "best_model": "GradientBoosting",
+  "r2": 0.9848,
+  "mae_inr": 727047,
+  "mape_pct": 6.62,
+  "log_residual_std": 0.0832,
+  "train_rows": 6400,
+  "test_rows": 1600,
+  "all_models_r2": {
+    "RandomForest": 0.968,
+    "GradientBoosting": 0.9848
+  }
+}

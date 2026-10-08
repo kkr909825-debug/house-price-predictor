@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>House Price Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="top">
+    <h1>What is this home worth?</h1>
+    <p>Describe the property and get an estimated market price, trained on thousands of listings.</p>
+  </header>
+
+  <main class="layout">
+    <form id="form" class="panel" novalidate>
+      <fieldset>
+        <legend>Location</legend>
+        <label>City
+          <select name="city" id="city" required></select>
+        </label>
+        <label>Distance from main road (m)
+          <input type="number" name="distance_main_road_m" value="100" min="0" max="5000" required>
+        </label>
+        <label>Width of road in front (ft)
+          <input type="number" name="road_width_ft" value="30" min="6" max="200" required>
+        </label>
+        <label>Distance to nearest metro / railway (km)
+          <input type="number" step="0.1" name="distance_metro_km" value="3" min="0" max="60" required>
+        </label>
+        <label>Locality rating
+          <select name="locality_rating">
+            <option value="1">1 – Basic</option>
+            <option value="2">2 – Fair</option>
+            <option value="3" selected>3 – Good</option>
+            <option value="4">4 – Very good</option>
+            <option value="5">5 – Premium</option>
+          </select>
+        </label>
+        <label>Facing
+          <select name="facing" id="facing"></select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>The property</legend>
+        <label>Property type
+          <select name="property_type" id="property_type"></select>
+        </label>
+        <label>Size (sq ft)
+          <input type="number" name="area_sqft" value="1200" min="200" max="20000" required>
+        </label>
+        <label>Bedrooms
+          <input type="number" name="bedrooms" value="2" min="1" max="10" required>
+        </label>
+        <label>Bathrooms
+          <input type="number" name="bathrooms" value="2" min="1" max="10" required>
+        </label>
+        <label>Balconies
+          <input type="number" name="balconies" value="1" min="0" max="6" required>
+        </label>
+        <label>Floors in the property
+          <input type="number" name="floors" value="1" min="1" max="10" required>
+        </label>
+        <label>Age (years)
+          <input type="number" name="age_years" value="5" min="0" max="100" required>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Features</legend>
+        <label>Parking
+          <select name="parking" id="parking"></select>
+        </label>
+        <label>Furnishing
+          <select name="furnishing" id="furnishing"></select>
+        </label>
+        <label class="check"><input type="checkbox" name="has_lift" checked> Lift available</label>
+        <label class="check"><input type="checkbox" name="has_security" checked> Gated / 24x7 security</label>
+      </fieldset>
+
+      <button type="submit" id="submit">Estimate price</button>
+      <p id="error" class="error" role="alert" hidden></p>
+    </form>
+
+    <aside class="result" aria-live="polite">
+      <div id="empty">
+        <p class="hint">Fill in the details and select <strong>Estimate price</strong>. Your estimate appears here.</p>
+      </div>
+      <div id="output" hidden>
+        <p class="label">Estimated price</p>
+        <p class="price" id="price"></p>
+        <p class="sub" id="psf"></p>
+        <div class="range">
+          <div class="bar"><span id="marker"></span></div>
+          <div class="ends"><span id="low"></span><span id="high"></span></div>
+          <p class="sub">Likely range for 8 in 10 similar homes</p>
+        </div>
+      </div>
+      <p class="model" id="model"></p>
+    </aside>
+  </main>
+
+  <footer>Estimates are for guidance only and are not a formal valuation.</footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
